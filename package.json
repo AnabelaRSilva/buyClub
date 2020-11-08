@@ -44,5 +44,10 @@
   },
   "resolutions": {
     "graceful-fs": "^4.2.4"
+  },
+  "engines": {
+    "node": "15.*",
+    "npm":"7.*"
   }
+
 }

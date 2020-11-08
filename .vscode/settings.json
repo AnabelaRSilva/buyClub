@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/d9953282-6cdd-48fc-acc5-9f0fd8b46757/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/buyinclub",
+    "appService.deploySubpath": "."
+}
