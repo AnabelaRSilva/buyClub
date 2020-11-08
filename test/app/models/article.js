@@ -1,8 +1,7 @@
 'use strict';
 
-const expect = require('chai').expect;
-
-const article = require('../../../app/models/article');
+import { expect } from 'chai';
+import article from '../../../app/models/article';
 
 describe('article', () => {
   it('should load', () => {

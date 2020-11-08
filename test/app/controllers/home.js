@@ -1,8 +1,8 @@
 'use strict';
 
-const expect = require('chai').expect;
+import { expect } from 'chai';
 
-const home = require('../../../app/controllers/home');
+import home from '../../../app/controllers/home.js';
 
 describe('home routes', () => {
   it('should load', () => {

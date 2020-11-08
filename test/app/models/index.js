@@ -1,8 +1,7 @@
 'use strict';
 
-const expect = require('chai').expect;
-
-const model = require('../../../app/models/index');
+import { expect } from 'chai';
+import model from '../../../app/models/index.js';
 
 describe('model', () => {
   it('should load', () => {

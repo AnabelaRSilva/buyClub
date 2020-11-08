@@ -1,8 +1,8 @@
 'use strict';
 
-const expect = require('chai').expect;
-const express = require('express');
-const configure = require('../../../config/express');
+import { expect } from 'chai';
+import express from 'express';
+import configure from '../../../config/express.js';
 
 describe('configure express', () => {
   it('should load', () => {
