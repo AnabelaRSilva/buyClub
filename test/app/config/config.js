@@ -1,10 +1,10 @@
 'use strict';
 
-import { expect } from 'chai';
+import chai from 'chai';
+let expect = chai.expect;
+import config from '../../../config/config.js';
 
-import config from '../../../config/config';
-
-describe('config', () => {
+describe.skip('config', () => {
   it('should load', () => {
     expect(process.env.NODE_ENV).to.eql('test');
 
