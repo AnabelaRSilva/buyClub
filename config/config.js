@@ -18,7 +18,7 @@ const config = {
       host: "buyclub.postgres.database.azure.com",
       port: 5432,
       username: "anabela@buyclub",
-      password: "4l!ceCruz",
+      password: "buyclub!23",
       database: "buyclub",
       synchronize: true,
       logging: false,
@@ -35,7 +35,20 @@ const config = {
       name: 'express-test'
     },
     port: process.env.PORT || 3000,
-    db: 'postgres://anabela%40buyclub:4l!ceCruz@buyclub.postgres.database.azure.com:5432/postgres'
+    db: {
+      type: "postgres",
+      host: "buyclub.postgres.database.azure.com",
+      port: 5432,
+      username: "anabela@buyclub",
+      password: "buyclub!23",
+      database: "buyclub",
+      synchronize: true,
+      logging: false,
+      ssl: true,
+      entities: [
+        userScheme
+      ]
+    }
   },
 
   production: {
@@ -44,7 +57,20 @@ const config = {
       name: 'express-test'
     },
     port: process.env.PORT || 3000,
-    db: 'postgres://anabela%40buyclub:4l!ceCruz@buyclub.postgres.database.azure.com:5432/postgres'
+    db: {
+      type: "postgres",
+      host: "buyclub.postgres.database.azure.com",
+      port: 5432,
+      username: "anabela@buyclub",
+      password: "buyclub!23",
+      database: "buyclub",
+      synchronize: true,
+      logging: false,
+      ssl: true,
+      entities: [
+        userScheme
+      ]
+    }
   }
 };
 
