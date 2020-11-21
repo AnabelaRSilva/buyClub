@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import {User} from '../models/article.js';
+import {User} from '../models/user.js';
 import { isAuthenticated } from '../../config/passport.js'
 
 export default function(app) {

@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import {  User } from '../app/models/article.js' 
+import {  User } from '../app/models/user.js' 
 
 export function isAuthenticated(req, res, next) {
     if (req.isAuthenticated())

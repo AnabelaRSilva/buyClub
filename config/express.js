@@ -16,6 +16,8 @@ import passport from 'passport';
 import homeController from '../app/controllers/home.js';
 import authController from '../app/controllers/authentication.js';
 import quotationController from '../app/controllers/quotation.js';
+import productController from '../app/controllers/products.js';
+
 import './passport.js';
 
 export default (app, config) => {
@@ -27,6 +29,11 @@ export default (app, config) => {
     layoutsDir:  config.root + '/app/views/layouts/',
     defaultLayout: 'main',
     extname: '.hbs',
+    helpers: {
+      "noop": function(options) {
+        return options.fn(this);
+      }
+    },
     partialsDir: [config.root + '/app/views/partials/']
   }));
   app.set('views', path.normalize(config.root + '/app/views'));
@@ -54,7 +61,11 @@ export default (app, config) => {
   app.use(flash());
   app.use(passport.initialize());
   app.use(passport.session()); 
-  
+  app.use(function(req, res, next) {
+    // https://stackoverflow.com/questions/22039970/global-properties-in-express-handlebars
+    res.locals.user = req.user; 
+    next();
+})
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach((controller) => {
@@ -64,6 +75,7 @@ export default (app, config) => {
   homeController(app);
   authController(app);
   quotationController(app);
+  productController(app);
 
   app.use((req, res, next) => {
     var err = new Error('Not Found');

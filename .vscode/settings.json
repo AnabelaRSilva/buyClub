@@ -3,6 +3,21 @@
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/d9953282-6cdd-48fc-acc5-9f0fd8b46757/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/buyinclub",
-    "appService.deploySubpath": "."
+    "appService.deploySubpath": ".",
+    "appService.defaultWebAppToDeploy": "/subscriptions/d9953282-6cdd-48fc-acc5-9f0fd8b46757/resourceGroups/buyclub/providers/Microsoft.Web/sites/buyinclub",
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": true
+            },
+            "previewLimit": 50,
+            "server": "buyclub.postgres.database.azure.com",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "buyclub",
+            "username": "anabela@buyclub",
+            "database": "buyclub",
+            "password": "buyclub!23"
+        }
+    ]
 }

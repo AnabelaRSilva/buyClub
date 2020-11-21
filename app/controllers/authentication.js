@@ -1,7 +1,8 @@
 
 import express from 'express';
 import passport from 'passport'; 
-import { User } from '../models/article.js';
+import { isAuthenticated } from '../../config/passport.js';
+import { User } from '../models/user.js';
 const router = express.Router();
 
 export default function(app) {
@@ -42,7 +43,7 @@ router.get('/signout', function(req, res) {
     res.redirect('/login');
 });
 
-router.get('/profile', function(req, res) {
+router.get('/profile', isAuthenticated, function(req, res) {
     res.render('authentication/profile',{user:req.user});
 });
 

@@ -5,7 +5,10 @@ import { fileURLToPath } from 'url';
 const env = process.env.NODE_ENV || 'development';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootPath = path.normalize(__dirname + '/..');
-import { userScheme } from '../app/models/article.js'; 
+import { userScheme } from '../app/models/user.js'; 
+import { productScheme } from '../app/models/product.js'; 
+import { quotationScheme, quotationProductScheme } from '../app/models/quotation.js'; 
+
 const config = {
   development: {
     root: rootPath,
@@ -21,10 +24,10 @@ const config = {
       password: "buyclub!23",
       database: "buyclub",
       synchronize: true,
-      logging: false,
+      logging: ["query", "error"],
       ssl: true,
       entities: [
-        userScheme
+        userScheme,productScheme, quotationScheme, quotationProductScheme
       ]
     }
   },
@@ -46,7 +49,7 @@ const config = {
       logging: false,
       ssl: true,
       entities: [
-        userScheme
+        userScheme,productScheme
       ]
     }
   },
@@ -68,7 +71,7 @@ const config = {
       logging: false,
       ssl: true,
       entities: [
-        userScheme
+        userScheme, productScheme,
       ]
     }
   }
