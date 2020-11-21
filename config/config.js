@@ -69,7 +69,9 @@ const config = {
       database: "buyclub",
       synchronize: true,
       logging: false,
-      ssl: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
       entities: [
         userScheme,productScheme, quotationScheme, quotationProductScheme
       ]

@@ -1,4 +1,3 @@
-
 import express from 'express';
 import passport from 'passport'; 
 import { isAuthenticated } from '../../config/passport.js';
