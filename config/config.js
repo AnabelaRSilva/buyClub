@@ -62,7 +62,7 @@ const config = {
     port: process.env.PORT || 3000,
     db: {
       type: "postgres",
-      url: 'postgres://anabela@buyclub:buyclub!23@buyclub.postgres.database.azure.com/buyclub?sll=true&&sslmode=require',
+      url: 'postgres://anabela@buyclub:buyclub!23@buyclub.postgres.database.azure.com/buyclub?&sslmode=require',
       synchronize: true,
       logging: false,
       ssl: true,
