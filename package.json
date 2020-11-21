@@ -45,6 +45,6 @@
     "graceful-fs": "^4.2.4"
   },
   "engines": {
-    "node": "14.7.0"
+    "node": "15.x"
   }
 }
