@@ -49,7 +49,7 @@ const config = {
       logging: false,
       ssl: true,
       entities: [
-        userScheme,productScheme
+        userScheme,productScheme, quotationScheme, quotationProductScheme
       ]
     }
   },
@@ -71,7 +71,7 @@ const config = {
       logging: false,
       ssl: true,
       entities: [
-        userScheme, productScheme,
+        userScheme,productScheme, quotationScheme, quotationProductScheme
       ]
     }
   }
