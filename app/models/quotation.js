@@ -1,7 +1,10 @@
 // Example model
-import {BaseEntity, EntitySchema} from "typeorm";
 import { Product } from "./product.js";
 import { User } from "./user.js";
+
+import typeorm from 'typeorm';
+import { ProductResponse } from "./quotation-reponse.js";
+const {BaseEntity, EntitySchema} = typeorm;
 
 export class Quotation extends BaseEntity{ 
   id;
@@ -13,9 +16,9 @@ export class Quotation extends BaseEntity{
 
 export class QuotationProduct extends BaseEntity{ 
     id;
-    productId;
-    quotationId;
-    buyerId;
+    product;
+    quotation;
+    user;
     quantity;
   }
 
@@ -37,7 +40,7 @@ export const quotationScheme = new EntitySchema({
       },
       state:{
         type: "enum",
-        enum: ["new", "open", "closed"],
+        enum: ["new", "published", "closed"],
         default: "new"
       }
   },
@@ -72,13 +75,19 @@ export const quotationProductScheme = new EntitySchema({
             type: "many-to-one",
             inverseSide: 'products'
         },
-        user: {
+        buyer: {
             target: () => User,
             type: "many-to-one",
         },
         product: {
             target: () => Product,
             type: "many-to-one",
+        },
+        productResponse: {
+            target: () => ProductResponse,
+            type: "many-to-one",
+            nullable: true,
+            cascade: true
         }
     }
   })

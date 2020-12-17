@@ -1,0 +1,21 @@
+@startuml aa
+
+entity Product {}
+
+entity  Quotation  {}
+
+entity QuotationProduct{
+  quantity
+  buyer
+}
+
+entity QuotationProductResponse{
+  price
+}
+
+Quotation "1" -- "0..*" QuotationProduct
+QuotationProduct "0..*" -- "1" Product
+QuotationProduct "0..*" -- "1" Buyer : buyers
+QuotationProduct "1..*" -- "0..1" QuotationProductResponse
+QuotationProductResponse "0..*" -- "1" Supplier 
+@enduml

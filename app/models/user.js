@@ -1,5 +1,6 @@
 // Example model
-import {BaseEntity, EntitySchema} from "typeorm";
+import typeorm from 'typeorm';
+const {BaseEntity, EntitySchema} = typeorm;
 
 export class User extends BaseEntity{ 
   id;
@@ -29,6 +30,14 @@ export const userScheme = new EntitySchema({
       },
       password: {
         type: "varchar"
+      },
+      supplier: {
+        type: "boolean",
+        default: false
+      },
+      buyer: {
+        type: "boolean",
+        default: false
       }
   },
 })

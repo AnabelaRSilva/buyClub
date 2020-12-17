@@ -24,6 +24,7 @@ gulp.task('watch', () => {
 gulp.task('develop', () => {
   livereload.listen();
   return nodemon({
+    nodeArgs: ['--harmony-top-level-await','--inspect'],
     script: 'app.js',
     ext: 'js coffee hbs',
     stdout: false

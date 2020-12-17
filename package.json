@@ -5,7 +5,7 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node --harmony-top-level-await app.js",
     "test": "NODE_ENV=test mocha --recursive test",
     "test:coverage": "nyc npm test",
     "test:unit": "mocha --recursive test/middleware test/models test/routes",
@@ -22,11 +22,13 @@
     "glob": "^6.0.4",
     "method-override": "^2.3.0",
     "morgan": "^1.6.1",
+    "mssql": "^6.2.3",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "pg": "^8.3.3",
     "pg-hstore": "2.3.3",
     "serve-favicon": "^2.3.0",
+    "session-file-store": "^1.5.0",
     "typeorm": "0.2.29"
   },
   "devDependencies": {

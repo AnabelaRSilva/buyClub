@@ -18,16 +18,20 @@
         </div>
         <div class="offset-md-3 col-sm-6 col-md-7">
             <button class="btn btn-primary" on-click="saveQuote">Save</button>
+            <button class="btn btn-primary" on-click="publishQuote">Publish</button>
         </div>
     </div>
     <h6>Products</h6>
     <div class="d-flex flex-column">
         {{#each products}}
-        <div class="d-flex justify-content-between mb-1">
-            <select as-select2="'api/products', 'name'" class="form-control" value="{{product.id}}">
-            </select>
-            <input class="form-control" style="max-width: 100px;" value="{{quantity}}">
-        </div>
+            {{#if buyer.id ==  @global.user.id}}
+                <div class="d-flex justify-content-between mb-1">
+                    <select as-select2="'api/products', 'name'" class="form-control" value="{{product.id}}">
+                        <option value="{{product.id}}">{{product.name}}</option>
+                    </select>
+                    <input class="form-control" style="max-width: 100px;" value="{{quantity}}">
+                </div>
+            {{/if}}
         {{/each}}
     </div>
     {{{{/noop}}}}
@@ -63,24 +67,22 @@
         target: '#target',
         template: document.getElementById('template').innerHTML,
         data: {
-            name: 'new Quotation',
+            name: 
+            'new Quotation',
             date:  moment().format('YYYY-MM-DD'),
             products: []
         },
+        
         on:{
             addProduct(){
-                this.push('products', { 
-                    product: { id: null},
-                    buyer: { id:window.user.id },
-                    quantity: 0
-                });
+                this.push('products', { product: { id: null }, buyer: {id: window.user.id}, quantity: 0});
             },
             saveQuote(){
-
+                var data = ractive.get({virtual:false});
                 $.ajax({
                     url:'/quotation',
                     type:"POST",
-                    data: JSON.stringify(ractive.get()),
+                    data: JSON.stringify(data),
                     contentType:"application/json; charset=utf-8",
                     dataType:"json"
                 })
@@ -93,8 +95,36 @@
                         message: 'Successfully save record!',
                     });
                 })
+            },
+             publishQuote(){
+                var data = ractive.get({virtual:false});
+                data.state = "published";
+                
+                $.ajax({
+                    
+                        url:'/quotation',
+                        type:"POST",
+                        data: JSON.stringify(data),
+                        contentType:"application/json; charset=utf-8",
+                        dataType:"json"
+                    })
+                    .done(c=>{
+                    
+                        ractive.set(c);
+                        iziToast.success({
+                            position: 'topCenter',
+                            title: 'OK',
+                            message: 'Quotation Published!',
+                        });
+                    });
+                
             }
         }
     });
 
+const urlParams = new URLSearchParams(document.location.search);
+const id = urlParams.get('id');
+$.getJSON('api/quotes/'+ id).then(function(quote){
+    ractive.set(quote);
+});
 </script>

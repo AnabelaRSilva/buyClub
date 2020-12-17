@@ -7,6 +7,21 @@
     "appService.defaultWebAppToDeploy": "/subscriptions/d9953282-6cdd-48fc-acc5-9f0fd8b46757/resourceGroups/buyclub/providers/Microsoft.Web/sites/buyinclub",
     "sqltools.connections": [
         {
+            "mssqlOptions": {
+                "appName": "SQLTools",
+                "useUTC": true,
+                "encrypt": true
+            },
+            "previewLimit": 50,
+            "server": "buyinclub.database.windows.net",
+            "port": 1433,
+            "driver": "MSSQL",
+            "name": "sqlserver",
+            "database": "buyinclub",
+            "username": "anabela",
+            "password": "!23Buyclub"
+        },
+        {
             "pgOptions": {
                 "ssl": true
             },
@@ -14,7 +29,7 @@
             "server": "buyclub.postgres.database.azure.com",
             "port": 5432,
             "driver": "PostgreSQL",
-            "name": "buyclub",
+            "name": "buyClub",
             "username": "anabela@buyclub",
             "database": "buyclub",
             "password": "buyclub!23"

@@ -1,8 +1,10 @@
 import fs from 'fs';
+
 import path from 'path';
-import { createConnection } from 'typeorm';
+import typeorm from 'typeorm';
+
 import config from '../../config/config.js';
 
-const conn = await createConnection(config.db);
+const conn = await typeorm.createConnection(config.db);
 
 export default conn

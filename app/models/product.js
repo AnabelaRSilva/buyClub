@@ -1,5 +1,6 @@
 // Example model
-import {BaseEntity, EntitySchema} from "typeorm";
+import typeorm from 'typeorm';
+const {BaseEntity, EntitySchema} = typeorm;
 
 export class Product extends BaseEntity{ 
   id;

@@ -8,7 +8,7 @@ const rootPath = path.normalize(__dirname + '/..');
 import { userScheme } from '../app/models/user.js'; 
 import { productScheme } from '../app/models/product.js'; 
 import { quotationScheme, quotationProductScheme } from '../app/models/quotation.js'; 
-
+import { productResponseScheme} from '../app/models/quotation-reponse.js';
 const config = {
   development: {
     root: rootPath,
@@ -27,7 +27,11 @@ const config = {
       logging: ["query", "error"],
       ssl: true,
       entities: [
-        userScheme,productScheme, quotationScheme, quotationProductScheme
+        userScheme,productScheme, 
+        quotationScheme, 
+        quotationProductScheme, 
+        productResponseScheme,
+        productResponseScheme
       ]
     }
   },
@@ -49,7 +53,11 @@ const config = {
       logging: false,
       ssl: true,
       entities: [
-        userScheme,productScheme, quotationScheme, quotationProductScheme
+        userScheme,
+        productScheme, 
+        quotationScheme, 
+        quotationProductScheme,
+        productResponseScheme
       ]
     }
   },
@@ -62,8 +70,12 @@ const config = {
     port: process.env.PORT || 3000,
     db: {
       type: "postgres",
-      url: 'postgres://anabela@buyclub:buyclub!23@buyclub.postgres.database.azure.com/buyclub?&sslmode=require',
-      synchronize: true,
+      host: "buyclub.postgres.database.azure.com",
+      port: 5432,
+      username: "anabela@buyclub",
+      password: "buyclub!23",
+      database: "buyclub",
+           synchronize: true,
       logging: false,
       ssl: true,
       extra: {
@@ -72,7 +84,11 @@ const config = {
         },
       },
       entities: [
-        userScheme,productScheme, quotationScheme, quotationProductScheme
+        userScheme,
+        productScheme, 
+        quotationScheme, 
+        quotationProductScheme,
+        productResponseScheme
       ]
     }
   }

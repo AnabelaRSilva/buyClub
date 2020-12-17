@@ -12,6 +12,7 @@ Ractive.decorators.select2 = function (node, url, name){
     const keypath = this.getContext(node).getBindingPath();
 
     $(node).select2({
+        
         ajax: {
             url: url,
             processResults: function (data) {
