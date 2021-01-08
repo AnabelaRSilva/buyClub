@@ -3,13 +3,17 @@ import { Product } from "./product.js";
 import { User } from "./user.js";
 
 import typeorm from 'typeorm';
-import { ProductResponse } from "./quotation-reponse.js";
+import { ProductResponse } from "./quotation-response.js";
 const {BaseEntity, EntitySchema} = typeorm;
 
-export class Quotation extends BaseEntity{ 
+export class Quotation extends BaseEntity { 
+  // primary key
   id;
+  // quotation name
   name;
+  // quotation date
   date;
+  // state 'new' | 'published' | 'closed'
   state
 }
 
@@ -17,8 +21,11 @@ export class Quotation extends BaseEntity{
 export class QuotationProduct extends BaseEntity{ 
     id;
     product;
+    productId;  
     quotation;
-    user;
+    quotationId;
+    buyer;
+    buyerId;
     quantity;
   }
 
@@ -28,16 +35,12 @@ export const quotationScheme = new EntitySchema({
   target: Quotation,
   columns: {
       id: {
-          primary: true,
-          type: "int",
-          generated: true
+        primary: true,
+        type: "int",
+        generated: true
       },
-      name: {
-          type: "varchar"
-      },
-      date: {
-        type: "date"
-      },
+      name: { type: "varchar" },
+      date: { type: "date" },
       state:{
         type: "enum",
         enum: ["new", "published", "closed"],
@@ -55,6 +58,8 @@ export const quotationScheme = new EntitySchema({
 })
 
 
+
+
 export const quotationProductScheme = new EntitySchema({
     name: "QuotationProduct",
     target: QuotationProduct,
@@ -67,7 +72,9 @@ export const quotationProductScheme = new EntitySchema({
         quantity:{
             type: "int",
         },
-       
+        buyerId: { type: "int" },
+        productId: { type: "int" },
+        quotationId: { type: "int" }
     },
     relations:{
         quotation: {
@@ -82,12 +89,6 @@ export const quotationProductScheme = new EntitySchema({
         product: {
             target: () => Product,
             type: "many-to-one",
-        },
-        productResponse: {
-            target: () => ProductResponse,
-            type: "many-to-one",
-            nullable: true,
-            cascade: true
         }
     }
   })

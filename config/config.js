@@ -8,7 +8,9 @@ const rootPath = path.normalize(__dirname + '/..');
 import { userScheme } from '../app/models/user.js'; 
 import { productScheme } from '../app/models/product.js'; 
 import { quotationScheme, quotationProductScheme } from '../app/models/quotation.js'; 
-import { productResponseScheme} from '../app/models/quotation-reponse.js';
+import { productResponseScheme} from '../app/models/quotation-response.js';
+import { orderScheme, orderProductScheme} from '../app/models/order.js';
+
 const config = {
   development: {
     root: rootPath,
@@ -31,7 +33,9 @@ const config = {
         quotationScheme, 
         quotationProductScheme, 
         productResponseScheme,
-        productResponseScheme
+        productResponseScheme,
+        orderScheme,
+        orderProductScheme
       ]
     }
   },
@@ -57,7 +61,9 @@ const config = {
         productScheme, 
         quotationScheme, 
         quotationProductScheme,
-        productResponseScheme
+        productResponseScheme,
+        orderScheme,
+        orderProductScheme
       ]
     }
   },
@@ -88,7 +94,9 @@ const config = {
         productScheme, 
         quotationScheme, 
         quotationProductScheme,
-        productResponseScheme
+        productResponseScheme,
+        orderScheme,
+        orderProductScheme
       ]
     }
   }

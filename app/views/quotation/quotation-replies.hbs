@@ -1,0 +1,140 @@
+<template id="template">
+    {{{{noop}}}}
+    <div class="form-group row">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" >Name</label>
+        <div class="col-sm-12 col-md-7">
+            <input readonly class="form-control-plaintext" type="text"  value="{{quotation.name}}" class="form-control">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Date</label>
+        <div class="col-sm-12 col-md-7">
+            <input readonly class="form-control-plaintext" type="date" style="width: 200px;" value="{{quotation.date}}" class="form-control">
+        </div>
+    </div>
+    <div class="form-group row">
+       
+        <div class="offset-md-3 col-sm-6 col-md-7">
+            <button class="btn btn-primary" on-click="saveQuote">Save</button>
+            <button class="btn btn-primary" on-click="createOrders">Create Orders</button>
+        </div>
+
+    </div>
+    <h6>Products</h6>
+    <div class="d-flex flex-column">
+        {{#each requests}}
+        <div class="d-flex justify-content-between mb-1 border-top">
+            <span class="text-bold">{{name}}</span>
+            <span> Qt. {{quantity}}</span> 
+        </div>
+        <div class="d-flex flex-column border-bottom mb-2">
+            {{#if responses.length == 0 }}
+                No replies
+            {{/if}}
+            {{#each responses}}
+            <div class="d-flex flex-row">
+                <div class="form-check">
+                    <input class="form-radio-input position-static" type="radio" id="blankCheckbox" name="[[ 'p-' + response.productId ]]" checked={{response.chose}} >
+                </div>
+                <span class="mr-auto ml-1">
+                    {{supplier.firstName}}  {{supplier.lastName}}
+                </span>
+                <span>
+                    {{response.price}} €
+                </span>
+            </div>
+            {{/each}}
+           
+        </div>
+        {{/each}}
+    </div>
+    {{{{/noop}}}}
+</template>
+
+<section class="section">
+    <div class="section-header">
+        <h1>Quotation</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="#">Home</a></div>
+            <div class="breadcrumb-item">Replies</div>
+        </div>
+    </div>
+
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Quotation replies</h4>
+                    </div>
+                    <div class="card-body" id="target">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    const urlParams = new URLSearchParams(document.location.search);
+    const id = urlParams.get('id');
+
+    var ractive = new Ractive({
+        target: '#target',
+        template: document.getElementById('template').innerHTML,
+        data: {
+            quotation: {
+               name: 'new Quotation',
+               date: ''
+            },
+            requests: [],
+            reponses: []
+        },
+        on:{
+            saveQuote(){
+                var data = ractive.get({virtual:false});
+                
+                
+                console.log(data.responses)
+
+                $.ajax({
+                    url:'/api/quotes/'+id+'/responses',
+                    type:"POST",
+                    data: JSON.stringify(data.responses),
+                    contentType:"application/json; charset=utf-8",
+                    dataType:"json"
+                })
+                .then(c=>{
+                   
+                  // ractive.set(c);
+                   iziToast.success({
+                        position: 'topCenter',
+                        title: 'OK',
+                        message: 'Successfully save record!',
+                    });
+                })
+                
+            },
+        
+        }
+    });
+
+
+$.getJSON('api/quotes/'+ id + "/responses").then(function(data){
+    
+    for(var i = 0; i < data.requests.length; i++){
+         var request = data.requests[i]
+        request.responses = [];
+    }
+    for(var i = 0; i < data.responses.length; i++){
+        var savedResponse = data.responses[i]
+        var resquestSaved = data.requests.find(res => res.productId == savedResponse.productId)
+        resquestSaved.responses.push({
+            supplier: data.suppliers.find(s=>s.id == savedResponse.supplierId),
+            response: savedResponse
+        });
+
+    }
+    ractive.set(data);
+});
+</script>

@@ -9,9 +9,11 @@ const {BaseEntity, EntitySchema} = typeorm;
 export class ProductResponse extends BaseEntity{ 
     id;
     supplierId;
+    productId;
     supplier;
     quotationProduct;
     price;
+    chose;
 }
 
 export const productResponseScheme = new EntitySchema({
@@ -37,8 +39,13 @@ export const productResponseScheme = new EntitySchema({
         },
         price:{
             type: "decimal",
+            precision: 5, 
+            scale: 2
         },
-       
+        chose:{
+            type: "boolean",
+            nullable: true
+        },
     },
     relations:{
         supplier: {

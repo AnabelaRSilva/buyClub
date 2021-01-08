@@ -1,4 +1,4 @@
-// Example model
+// Model User.js
 import typeorm from 'typeorm';
 const {BaseEntity, EntitySchema} = typeorm;
 
@@ -19,25 +19,11 @@ export const userScheme = new EntitySchema({
           type: "int",
           generated: true
       },
-      email: {
-          type: "varchar"
-      },
-      firstName: {
-          type: "varchar"
-      },
-      lastName: {
-        type: "varchar"
-      },
-      password: {
-        type: "varchar"
-      },
-      supplier: {
-        type: "boolean",
-        default: false
-      },
-      buyer: {
-        type: "boolean",
-        default: false
-      }
-  },
+      email:     { type: "varchar" },
+      firstName: { type: "varchar" },
+      lastName:  { type: "varchar" },
+      password:  { type: "varchar" },
+      supplier:  { type: "boolean" },
+      buyer:     { type: "boolean" }
+  }
 })

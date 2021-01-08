@@ -26,10 +26,12 @@ router.get('/register', (req, res, next) => {
     res.render('authentication/register', {  layout: 'simple', message: req.flash('error')});
  });
 
-router.post('/register', (req, res, next) => {
+router.post('/register', async (req, res, next) => {
     
     var formdata = req.body;
-    console.log(formdata);
+    var existentUser = await User.findOne({where: {email: formdata.email}})
+    if(existentUser!=null)
+        res.render('authentication/register', {  layout: 'simple', message: 'User email already registered'});
     var newUser  = new User();
     Object.assign(newUser, formdata);
     newUser.save().then(c=>{

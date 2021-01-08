@@ -5,7 +5,7 @@
 <script id="template" type="text/ractive">
     {{{{noop}}}}
     <div class="section-header">
-        <h1>Quotes</h1>
+        <h1> Responded Quotes </h1>
         <div class="section-header-button">
             <a href="/new-quotation" class="btn btn-primary">Add New</a>
         </div>
@@ -15,26 +15,6 @@
     </div>
     <div class="section-body">
         
-
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-0">
-                    <div class="card-body">
-                        <ul class="nav nav-pills">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">New <span class="badge badge-white">5</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Open <span class="badge badge-primary">1</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Close <span class="badge badge-primary">1</span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card">
@@ -76,13 +56,17 @@
                                     <td>
                                         {{name}}
                                         <div class="table-links">
-                                            <a href="/edit-quotation?id={{id}}">Edit</a>
-                                            <div class="bullet"></div>
-                                            <a href="#" on-click="@.deleteItem(id)" class="text-danger">Delete</a>
+                                        <a href="/quotation-replies?id={{id}}">Quotation Replies</a>
+                                        <div class="bullet"></div>
+                                        <a href="/create-orders?id={{id}}">Create Order</a>
                                         </div>
                                     </td>
-                                   <td> {{date}}</td>
-                                   <td> {{state}}</td>
+                                   <td>
+                                        {{date}}
+                                    </td>
+                                    <td>
+                                        {{state}}
+                                    </td>
                                 </tr>
                                 {{/each}}
                                 </tbody>
@@ -125,8 +109,11 @@
     var ractive = new Ractive({
         template: '#template',
         target: '#quotes-section',
-        deleteItem(id){
-            confirmDelete(id);
+        data: {
+            quotes: [],
+            page: 1,
+            count: 0,
+            searchText: ''
         },
         computed: {
             pages() {
@@ -154,55 +141,11 @@
 
     async function loadQuotes(page, search) {
 
-        let quotes = await $.getJSON('api/quotes', { page, search });
+        let quotes = await $.getJSON('api/quotes-with-reply', { page, search });
         ractive.set(quotes);
 
     }
     loadQuotes(1, '');
-
-    function confirmDelete(id){
-
-        iziToast.question({
-            timeout: 20000,
-            close: false,
-            overlay: true,
-            displayMode: 'once',
-            id: 'question',
-            zindex: 999,
-            title: 'Hey',
-            message: 'Are you sure about that?',
-            position: 'center',
-            buttons: [
-                ['<button><b>YES</b></button>', function (instance, toast) {
-        
-                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-                    
-                    fetch("/api/quotes/"+id, {
-                        method: "DELETE",
-                        referrerPolicy: "same-origin"
-                    })
-                    .then(a=>{
-                        iziToast.success({
-                            position: 'topCenter',
-                            title: 'OK',
-                            message: 'Successfully deleted!',
-                        });
-
-                         var search = ractive.get('search');
-                        loadQuotes(1, search);
-                    });
-        
-                }, true],
-                ['<button>NO</button>', function (instance, toast) {
-        
-                    instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-        
-                }],
-            ],
-
-        });
-    }
-
     
 
 </script>

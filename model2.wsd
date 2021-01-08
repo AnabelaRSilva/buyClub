@@ -1,27 +1,98 @@
 @startuml aa
 
-entity Product {}
+' hide the spot
+hide circle
+hide empty methods 
 
-entity ProductResponse {
-  price
+
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity product_response {
+  id: int <<generated>> 
+  price: numeric
+  choosen: bolean
+  supplierId: int
+  productId: int
+  quotationId: int
+
+}
+
+
+together {
+   entity user
+   entity order
+   entity order_product
+   entity product
 }
 
 together {
-  entity Product
-  entity ProductResponse
+   entity quotation
+   entity quotation_product
+   entity product_response
+   entity product
+   entity user
 }
 
-entity  Quotation  {}
-
-entity QuotationProduct{
-  quantity
-  buyer
+entity user {
+  id: int <<generated>>
+  firstName: varchar
+  lastName: varchar
+  email: varchar
+  password: varchar
+  buyer: boolean
+  supplier: boolean
 }
 
-Quotation "1" -- "0..*" QuotationProduct
-QuotationProduct "0..*" -- "1" Product
-QuotationProduct "0..*" -- "1" Buyer 
-ProductResponse "0..*" -- "1" Supplier 
-ProductResponse "0..*" -- "1..1" Product
-ProductResponse "0..1" -up- "1" Quotation 
+entity product {
+  id: int <<generated>>
+  name: varchar 
+  brand: varchar
+  model: varchar
+  size: varchar
+}
+
+
+
+entity quotation  {
+  id: int <<generated>>
+  name: varchar
+  date: date
+  state: enum
+
+}
+
+entity order {
+  id: int <<generated>>
+  buyerId: int
+  supplierId: int
+}
+entity order_product {
+  id: int <<generated>>
+  quantity: int
+  price: numeric
+  productId: int
+  orderId: int
+}
+
+entity quotation_product{
+  id: int <<generated>>
+  quantity: int
+  buyerId: int
+  supplier: int
+  productId: int
+}
+
+quotation "1" -- "0..*" quotation_product
+quotation_product "0..*" -- "1" product
+quotation_product "0..*" -- "1" user 
+product_response "0..*" -- "1" user 
+product_response "0..*" -- "1..1" product
+product_response "0..1" -up- "1" quotation 
+order "1" -- "0..*" order_product
+order "1" -- "0..*" user : "buyer"
+order "1" -- "0..*" user : "supplier"
+order_product "0..*" -- "1" product
+
 @enduml

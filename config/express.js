@@ -17,6 +17,7 @@ import homeController from '../app/controllers/home.js';
 import authController from '../app/controllers/authentication.js';
 import quotationController from '../app/controllers/quotation.js';
 import productController from '../app/controllers/products.js';
+import orderController from '../app/controllers/order.js';
 
 import './passport.js';
 
@@ -65,17 +66,13 @@ export default (app, config) => {
     // https://stackoverflow.com/questions/22039970/global-properties-in-express-handlebars
     res.locals.user = req.user; 
     next();
-})
-
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
-  controllers.forEach((controller) => {
-    ///require(controller)(app);
-  });
+  })
 
   homeController(app);
   authController(app);
   quotationController(app);
   productController(app);
+  orderController(app);
 
   app.use((req, res, next) => {
     var err = new Error('Not Found');
