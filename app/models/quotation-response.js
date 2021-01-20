@@ -25,27 +25,11 @@ export const productResponseScheme = new EntitySchema({
             type: "int",
             generated: true
         },
-        supplierId: {
-            type: "int",
-        },
-        productId: {
-            type: "int",
-            nullable: false
-        },
-
-        quotationId: {
-            type: "int",
-            nullable: false
-        },
-        price:{
-            type: "decimal",
-            precision: 5, 
-            scale: 2
-        },
-        chose:{
-            type: "boolean",
-            nullable: true
-        },
+        supplierId:  { type: "int", },
+        productId:   { type: "int", nullable: false },
+        quotationId: { type: "int", nullable: false },
+        price: { type: "decimal", precision: 5, scale: 2 },
+        chose: { type: "boolean", nullable: true },
     },
     relations:{
         supplier: {

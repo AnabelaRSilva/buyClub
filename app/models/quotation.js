@@ -3,7 +3,6 @@ import { Product } from "./product.js";
 import { User } from "./user.js";
 
 import typeorm from 'typeorm';
-import { ProductResponse } from "./quotation-response.js";
 const {BaseEntity, EntitySchema} = typeorm;
 
 export class Quotation extends BaseEntity { 
@@ -16,7 +15,6 @@ export class Quotation extends BaseEntity {
   // state 'new' | 'published' | 'closed'
   state
 }
-
 
 export class QuotationProduct extends BaseEntity{ 
     id;
@@ -56,9 +54,6 @@ export const quotationScheme = new EntitySchema({
     },
   }
 })
-
-
-
 
 export const quotationProductScheme = new EntitySchema({
     name: "QuotationProduct",

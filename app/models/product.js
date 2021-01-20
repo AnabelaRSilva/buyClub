@@ -1,8 +1,6 @@
-// Example model
-
+// product.js
 import typeorm from 'typeorm';
 const {BaseEntity, EntitySchema} = typeorm;
-
 
 export class Product extends BaseEntity{ 
   id;
@@ -11,6 +9,7 @@ export class Product extends BaseEntity{
   model;
   size;
 }
+
 export const productScheme = new EntitySchema({
   name: "Product",
   target: Product,
@@ -20,19 +19,9 @@ export const productScheme = new EntitySchema({
           type: "int",
           generated: true
       },
-      name: {
-          type: "varchar"
-      },
-      brand: {
-        type: "varchar"
-      },
-      model: {
-        type: "varchar",
-        nullable: true,
-      },
-      size: {
-        type: "varchar",
-        nullable: true,
-      }
-  },
+      name:  { type: "varchar" },
+      brand: { type: "varchar" },
+      model: { type: "varchar", nullable: true },
+      size:  { type: "varchar", nullable: true,}
+    }
 })

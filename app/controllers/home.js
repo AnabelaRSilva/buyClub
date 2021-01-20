@@ -1,6 +1,5 @@
 import express from 'express';
 const router = express.Router();
-import {User} from '../models/user.js';
 import { isAuthenticated } from '../../config/passport.js'
 
 export default function(app) {
@@ -14,11 +13,9 @@ router.get('/', isAuthenticated, (req, res, next) => {
     layout = "main-supplier";
 
   }
-  User.find().then((users) => {
-    res.render('index', {
-      title: 'Generator-Express MVC --- dd',
-      users: users,
-      layout: layout
-    });
+  res.render('index', {
+    title: 'Main page',
+    users: [],
+    layout: layout
   });
 });

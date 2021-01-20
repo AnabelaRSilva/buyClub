@@ -47,4 +47,3 @@ router.get('/signout', function(req, res) {
 router.get('/profile', isAuthenticated, function(req, res) {
     res.render('authentication/profile',{user:req.user});
 });
-
