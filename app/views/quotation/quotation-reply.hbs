@@ -21,9 +21,9 @@
     <h6>Products</h6>
     <div class="d-flex flex-column">
         {{#each requests}}
-        <div class="d-flex justify-content-between mb-1">
-           {{name}}
-           {{quantity}}
+        <div class="d-flex  mb-1">
+          <span class="mr-auto">{{name}}</span> 
+         <span class="mt-auto mb-1"> x{{quantity}}</span>
             <input class="form-control" style="max-width: 100px;" value="{{price}}">
         </div>
         {{/each}}
@@ -66,6 +66,15 @@
             name: 'new Quotation',
             requests: [],
             reponses: []
+        },
+        computed: {
+            pages() {
+                var pages = [];
+                pageMax = Math.ceil(this.get('count') / 10);
+                for (var page = 1; page <= pageMax; page++)
+                    pages.push(page);
+                return pages;
+            }
         },
         on:{
             saveQuote(){
